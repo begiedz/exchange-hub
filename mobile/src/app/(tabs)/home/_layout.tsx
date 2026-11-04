@@ -1,6 +1,7 @@
 import { Icon } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
-import { router, Stack } from 'expo-router';
+import { router } from 'expo-router';
+import { Stack } from 'expo-router/stack';
 import { User } from 'lucide-react-native';
 import { Platform, Pressable } from 'react-native';
 

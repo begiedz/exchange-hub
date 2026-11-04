@@ -9,6 +9,7 @@ import { WalletBalance } from '@/components/wallet/wallet-balance';
 import { WalletCard } from '@/components/wallet/wallet-card';
 import { useWallet } from '@/hooks/queries/use-wallet';
 import { getWalletBalance } from '@/lib/wallet';
+import { TransactionsListwoPagination } from '@/components/transactions/transaction-list-wo-pagination';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -95,29 +96,7 @@ export default function HomeScreen() {
         <Text className="mb-3 px-1 font-bold text-foreground text-lg">
           Recent Activity
         </Text>
-
-        <Card>
-          <CardContent className="flex-row justify-between items-center">
-            <View className="flex-row items-center">
-              <View className="justify-center items-center bg-emerald-100 mr-3.5 rounded-full w-11 h-11">
-                <ArrowUpRight
-                  size={20}
-                  className="text-emerald-600"
-                  color="#059669"
-                />
-              </View>
-              <View>
-                <Text className="font-bold text-foreground text-sm">
-                  Sent to John Doe
-                </Text>
-                <Text className="mt-0.5 text-muted-foreground text-xs">
-                  Today, 10:24 AM
-                </Text>
-              </View>
-            </View>
-            <Text className="font-bold text-foreground text-sm">-£500.00</Text>
-          </CardContent>
-        </Card>
+        <TransactionsListwoPagination />
       </View>
     </Screen>
   );
