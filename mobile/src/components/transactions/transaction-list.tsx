@@ -9,12 +9,16 @@ import { ActivityIndicator, View } from 'react-native';
 
 const PAGE_SIZE = 10;
 
-export function TransactionsList() {
+interface Props {
+  pagination?: boolean;
+}
+
+export function TransactionsList({ pagination = true }: Props) {
   const [page, setPage] = useState(1);
 
   const { data, isPending, isError, isFetching } = useTransactions({
-    page,
-    pageSize: PAGE_SIZE,
+    page: pagination ? page : 1,
+    pageSize: pagination ? PAGE_SIZE : 3,
   });
 
   const transactions = data?.items ?? [];
@@ -60,42 +64,43 @@ export function TransactionsList() {
           ))
         )}
       </View>
-
       {/* Pagination controls */}
-      <View className="flex-row items-center justify-between gap-2 py-3">
-        <Button
-          variant="outline"
-          size="sm"
-          // disable navigation on the first page or while fetching data.
-          disabled={page === 1 || isFetching}
-          // decrease the page number without going below page 1.
-          onPress={() => setPage(prev => Math.max(1, prev - 1))}
-        >
-          <Icon
-            as={ChevronLeft}
-            size={16}
-          />
-          <Text>Previous</Text>
-        </Button>
+      {pagination && (
+        <View className="flex-row items-center justify-between gap-2 py-3">
+          <Button
+            variant="outline"
+            size="sm"
+            // disable navigation on the first page or while fetching data.
+            disabled={page === 1 || isFetching}
+            // decrease the page number without going below page 1.
+            onPress={() => setPage(prev => Math.max(1, prev - 1))}
+          >
+            <Icon
+              as={ChevronLeft}
+              size={16}
+            />
+            <Text>Previous</Text>
+          </Button>
 
-        {/* Current page and total number of pages */}
-        <Text className="text-xs text-muted-foreground">
-          {page} / {totalPages}
-        </Text>
+          {/* Current page and total number of pages */}
+          <Text className="text-xs text-muted-foreground">
+            {page} / {totalPages}
+          </Text>
 
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={page >= totalPages || isFetching}
-          onPress={() => setPage(prev => Math.min(totalPages, prev + 1))}
-        >
-          <Text>Next</Text>
-          <Icon
-            as={ChevronRight}
-            size={16}
-          />
-        </Button>
-      </View>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page >= totalPages || isFetching}
+            onPress={() => setPage(prev => Math.min(totalPages, prev + 1))}
+          >
+            <Text>Next</Text>
+            <Icon
+              as={ChevronRight}
+              size={16}
+            />
+          </Button>
+        </View>
+      )}
     </View>
   );
 }

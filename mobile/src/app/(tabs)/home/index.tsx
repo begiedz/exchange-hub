@@ -9,6 +9,7 @@ import { WalletBalance } from '@/components/wallet/wallet-balance';
 import { WalletCard } from '@/components/wallet/wallet-card';
 import { useWallet } from '@/hooks/queries/use-wallet';
 import { getWalletBalance } from '@/lib/wallet';
+import { TransactionsList } from '@/components/transactions/transaction-list';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function HomeScreen() {
       contentClassName="gap-4"
     >
       {/* 1. Górny pasek: Saldo i Awatar */}
-      <View className="flex-row justify-between items-center px-2">
+      <View className="flex-row items-center justify-between px-2">
         <WalletBalance
           balance={plnBalance}
           isPending={isPending}
@@ -42,17 +43,17 @@ export default function HomeScreen() {
         >
           <Card>
             <CardContent>
-              <View className="justify-center items-center bg-emerald-100 mb-3 rounded-full w-10 h-10">
+              <View className="mb-3 h-10 w-10 items-center justify-center rounded-full bg-emerald-100">
                 <ArrowUpRight
                   size={20}
                   className="text-emerald-600"
                   color="#059669"
                 />
               </View>
-              <Text className="font-bold text-foreground text-base">
+              <Text className="text-base font-bold text-foreground">
                 Send Money
               </Text>
-              <Text className="mt-0.5 text-muted-foreground text-xs">
+              <Text className="mt-0.5 text-xs text-muted-foreground">
                 Cash out the balance
               </Text>
             </CardContent>
@@ -66,17 +67,17 @@ export default function HomeScreen() {
         >
           <Card>
             <CardContent>
-              <View className="justify-center items-center bg-blue-100 mb-3 rounded-full w-10 h-10">
+              <View className="mb-3 h-10 w-10 items-center justify-center rounded-full bg-blue-100">
                 <ArrowDownLeft
                   size={20}
                   className="text-blue-600"
                   color="#2563eb"
                 />
               </View>
-              <Text className="font-bold text-foreground text-base">
+              <Text className="text-base font-bold text-foreground">
                 Receive
               </Text>
-              <Text className="mt-0.5 text-muted-foreground text-xs">
+              <Text className="mt-0.5 text-xs text-muted-foreground">
                 Get paid in PLN
               </Text>
             </CardContent>
@@ -92,32 +93,10 @@ export default function HomeScreen() {
 
       {/* 4. Sekcja: Recent Activity */}
       <View className="mb-4">
-        <Text className="mb-3 px-1 font-bold text-foreground text-lg">
+        <Text className="mb-3 px-1 text-lg font-bold text-foreground">
           Recent Activity
         </Text>
-
-        <Card>
-          <CardContent className="flex-row justify-between items-center">
-            <View className="flex-row items-center">
-              <View className="justify-center items-center bg-emerald-100 mr-3.5 rounded-full w-11 h-11">
-                <ArrowUpRight
-                  size={20}
-                  className="text-emerald-600"
-                  color="#059669"
-                />
-              </View>
-              <View>
-                <Text className="font-bold text-foreground text-sm">
-                  Sent to John Doe
-                </Text>
-                <Text className="mt-0.5 text-muted-foreground text-xs">
-                  Today, 10:24 AM
-                </Text>
-              </View>
-            </View>
-            <Text className="font-bold text-foreground text-sm">-£500.00</Text>
-          </CardContent>
-        </Card>
+        <TransactionsList pagination={false} />
       </View>
     </Screen>
   );
